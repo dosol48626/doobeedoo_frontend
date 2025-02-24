@@ -8,8 +8,10 @@ function MainPage() {
     return (
         <PageContainer>
             <Sidebar />
-            <TodoWrite />
-            <TodoListTabs />
+            <ContentArea>
+                <TodoWrite />
+                <TodoListTabs />
+            </ContentArea>
         </PageContainer>
     );
 }
@@ -18,4 +20,13 @@ export default MainPage;
 
 const PageContainer = styled.div`
     display: flex;
+    `;
+
+const ContentArea = styled.div`
+    margin-left:200px;
+    padding: 50px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     `;

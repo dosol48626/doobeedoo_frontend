@@ -7,15 +7,18 @@ import { accountState } from "../../recoil/accountAtom";
 import { createTodo } from "../../services/todoService";
 
 
-
 const TodoWrite = () => {
+    const todayString = new Date().toISOString().split("T")[0];
+
     const {token} = useRecoilValue(accountState);
     const [title, setTitle] = useState("");
-    const [dueDate, setDueDate] = useState("");
+    const [dueDate, setDueDate] = useState(todayString);
     const [priority, setPriority] = useState("BLACK");
     //어차피 서버에서 디폴트로 블랙 했으니까 이거 빈공간 넣어도 되겠지....?
     //블랙으로 넣어놔야 저기서도 빈게 아니고 블랙으로 잡혀있구나.
     //어? 근데 아..아닌가.
+    //아 날짜 빈 공간이니까 에러나는거 어떻게 잡지...
+    //아 전에 만든 투두에서 한거 있잖슴.
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -72,25 +75,27 @@ export default TodoWrite;
 
 const FormContainer = styled.form`
     display: flex;
-    margin: 50px;
+    margin: 0px;
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px;
     background-color: #f0f0f0;
-    margin-left: 300px;
+    margin-left: 10px;
+    margin-right: 900px;
 `;
 
 const Input = styled.input`
     margin: 10px;
-    padding: 5px;
+    padding: 10px;
 `;
 
 const Select = styled.select`
     margin: 10px;
-    padding: 5px;
+    padding: 10px;
 `;
 
 
 //이거 보고 확인해봐야지.
 //css건드리는게 재밌긴한데;;; 시간 꽤 오래 걸리는데??
 //일단 네모박스로 기본 틀만 만들고 수요일에 몰아서 다 잡아야지.
+//으.. 틀만 잡고 날 잡아서 한방에 디자인 잡아야지..

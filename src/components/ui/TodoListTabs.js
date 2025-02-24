@@ -32,7 +32,7 @@ export default TodoListTabs;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 40px;
 `;
 const TabButton = styled.div`
     margin: 10px;
@@ -40,5 +40,9 @@ const TabButton = styled.div`
     color: ${props => props.active ? "blue" : "black"};
 `;
 const ContentArea = styled.div`
-    margin-top: 20px;
+    margin-left: 20px;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 `;

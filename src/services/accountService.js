@@ -6,11 +6,11 @@ const API_URL = "http://localhost:8000/api/accounts";
 // 회원가이이이이입!!!!!!!!!
 export const register = async (username, nickname, password) => {
     try {
-        const response = await axios.post(`${API_URL}/register/`, {
-            username,
-            nickname,
-            password,
-        });
+        const response = await axios.post(`${API_URL}/register/`, 
+            {username, nickname, password},
+            {headers: {"Content-Type": "application/json"}
+            },
+        );
         return response.data;
     } catch(error){
             throw error;
@@ -37,7 +37,7 @@ export const login = async (username, password) => {
 //그리고 이제 회원가입 로그인 빼고는 전부 토큰 넣어줘야하는데 이거 좀 어떻게 못하나;;
 // 하나로 만들어서 쓸때 그냥 함수처럼 못쓰는건가??? 안그러면 저 헤더만 20번은 넘게 쳐야하는데;;
 // 로그아웃
-export const logout = async () => {
+export const logout = async (token) => {
     try {
         const response = await axios.post(`${API_URL}/logout/`,{
             Headers: {
@@ -91,7 +91,7 @@ export const deleteAccount = async (token) => {
 //토큰 유효성 검증
 export const validateToken = async (token) => {
     try {
-        const respomse = await axios.post(`${API_URL}/token/verify/`, {
+        const response = await axios.post(`${API_URL}/token/verify/`, {
             token,
         }, {
             headers: {
@@ -103,6 +103,7 @@ export const validateToken = async (token) => {
         throw error;
     }
 }
+//자동완성하다가 response가 respomse로 되어있네;;
 
 //아 어카운트 서비스 끝.
 //만드는 김에 그냥 다른것도 서비스 다 만들어버리자.

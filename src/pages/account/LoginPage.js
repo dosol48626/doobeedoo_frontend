@@ -11,25 +11,21 @@ function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const newAccountState = {
-        isLoggedIn: true,
-        token: "",
-        user: {},
-    };
     //이렇게 해서 해결 완료. 이제 새로고침해도 안돌아감.
-
+    //로그인을 하면 로그인 상태가 리코일에 들어가고 토큰이 로컬스트리지에 들어가서
+    //상태 관리는 리코일이하고 글 쓰거나 뭐 할때 필요한 토큰 그거는 로컬에서 꺼내다
+    //쓰는 느낌인데... 처음부터 그렇게 했는데 왜 안되었던거지
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const result = await login(username, password);
-            setAccountState({
+
+            const newAccountState = {
                 isLoggedIn: true,
                 token: result.access,
                 user: result.user,
-            });
-
+            };
             setAccountState(newAccountState);
-            //이거해줘야 새로고침해도 로그인 유지된다. 아그러면 새로고침하면 다시 false로 바꿔서 날라가버림
             localStorage.setItem("accountState", JSON.stringify(newAccountState));
             Navigate("/");
         } catch (error) {

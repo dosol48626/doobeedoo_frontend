@@ -26,7 +26,7 @@ const SidebarContainer = styled.div`
     `;
 
 const SidebarItem = styled.div`
-    margin: 10px 0;
+    margin: 10px;
     cursor: pointer;
     `;
 

@@ -1,15 +1,15 @@
 import React from "react";
 import Sidebar from "../components/ui/Sidebar";
 import styled from "styled-components";
+import TodoWrite from "../components/ui/TodoWrite";
+import TodoListTabs from "../components/ui/TodoListTabs";
 
 function MainPage() {
     return (
         <PageContainer>
             <Sidebar />
-            <ContentArea>
-                <h1>메인 페이지</h1>
-                <p>메인 페이지입니다.</p>
-            </ContentArea>
+            <TodoWrite />
+            <TodoListTabs />
         </PageContainer>
     );
 }
@@ -18,9 +18,4 @@ export default MainPage;
 
 const PageContainer = styled.div`
     display: flex;
-    `;
-
-const ContentArea = styled.div`
-    margin-left:200px;
-    flex: 1;
     `;

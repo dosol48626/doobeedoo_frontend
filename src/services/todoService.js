@@ -29,16 +29,29 @@ export const getNextTodos = async (token) => {
     }
 }
 
+//셀렉터에 넣을 투두 다 가져오기
+export const getAllTodos = async (token) => {
+    try {
+        const response = await axios.get(`${API_URL}/`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+    } catch (error){
+        throw error;
+    }
+}
+
 // ; 이거 안붙여서 나중에 안되는거 아니겠지...
 // 투두 쓰기기
 export const createTodo = async (title, dueDate, priority, token) => {
     try {
         const response = await axios.post(`${API_URL}/`,
-            title,
-            dueDate,
-            priority,
+            {title,dueDate,priority},
             {
-                headers: { Authorization: `Bearer ${token}` },
+               headers: {
+                     Authorization: `Bearer ${token}`,
+                     "Content-Type": "application/json",
+               }
             }
         );
         return response.data;

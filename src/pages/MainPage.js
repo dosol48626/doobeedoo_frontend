@@ -3,12 +3,14 @@ import Sidebar from "../components/ui/Sidebar";
 import styled from "styled-components";
 import TodoWrite from "../components/ui/TodoWrite";
 import TodoListTabs from "../components/ui/TodoListTabs";
+import AllTodosLoader from "../components/ui/todo/AllTodosLoader";
 
 function MainPage() {
     return (
         <PageContainer>
             <Sidebar />
             <ContentArea>
+                <AllTodosLoader />
                 <TodoWrite />
                 <TodoListTabs />
             </ContentArea>

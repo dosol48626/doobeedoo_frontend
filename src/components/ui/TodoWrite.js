@@ -1,11 +1,13 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useState } from "react";
 
 import { accountState } from "../../recoil/accountAtom";
 import { createTodo } from "../../services/todoService";
 
+import { getTodayTodosState } from "../../recoil/todoAtom";
+import { getNextTodosState } from "../../recoil/todoAtom";
 
 const TodoWrite = () => {
     const todayString = new Date().toISOString().split("T")[0];
@@ -20,18 +22,25 @@ const TodoWrite = () => {
     //아 날짜 빈 공간이니까 에러나는거 어떻게 잡지...
     //아 전에 만든 투두에서 한거 있잖슴.
 
+    // const setTodayTodos = useRecoilState(getTodayTodosState);
+
+    const [, setTodayTodos] = useRecoilState(getTodayTodosState);
+    const [, setNextTodos] = useRecoilState(getNextTodosState);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(token);
+        // console.log(token);
         //토큰이 없네??? 왜지????????
         //지금 토큰이 안넘어 오는데 왜 그런거지...
         //로그인 할때 제대로 안담겼나??
     
         //바꾼게 없는데 왜 갑자기 토큰 잘 담아서 주는거지....
         try {
-            await createTodo(title, dueDate, priority, token);
+            const newTodo = await createTodo(title, dueDate, priority, token);
+            setTodayTodos((prev) => [...prev, newTodo]);
+            setNextTodos((prev) => [...prev, newTodo]);
             setTitle("");
-            setDueDate("");
+            setDueDate(todayString);
             setPriority("BLACK");
         } catch (error) {
             console.error("투두 생성 실패", error);

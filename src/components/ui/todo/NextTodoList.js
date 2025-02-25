@@ -1,35 +1,67 @@
-import React, {useEffect} from "react";
-import { useRecoilState ,useRecoilValue } from "recoil";
+import React, { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
-import { getNextTodos } from "../../../services/todoService";
+import { getNextTodos } from "../../../services/todoService"; 
 import { accountState } from "../../../recoil/accountAtom";
-import { getNextTodosState } from "../../../recoil/todoAtom";
+import { getNextTodosState } from "../../../recoil/todoAtom"; 
+
+import { selectedTodoState } from "../../../recoil/selectedTodoAtom";
+
+import { toggleTodo } from "../../../services/todoService";
 
 const NextTodoList = () => {
-    const [nextTodos, setNextTodos] = useRecoilState(getNextTodosState);
+    const [ nextTodos, setNextTodos ] = useRecoilState(getNextTodosState); 
     const { token } = useRecoilValue(accountState);
+
+    const [, setSelectedTodo] = useRecoilState(selectedTodoState);
 
     useEffect(() => {
         async function fetchNextTodos() {
-            try{
-                const todos = await getNextTodos(token);
+            try {
+                const todos = await getNextTodos(token); 
                 setNextTodos(todos);
             } catch (error) {
-                console.error("헤더!!!!!", error);
+                console.error("헤더에 값 안넣었을듯", error);
             }
         }
         fetchNextTodos();
-    }
-    , [token, setNextTodos]);
+    }, [token, setNextTodos]);
 
-    return(
+    const handleTodoClick = (todo) => {
+        setSelectedTodo(todo);
+    };
+
+    const handleCheckboxClick = async (todo) => {
+        try {
+            await toggleTodo(todo.todoId, token);
+            setNextTodos((prevTodos) =>
+                prevTodos.map((t) =>
+                    t.todoId === todo.todoId ? { ...t, complete: !t.complete } : t
+                )
+            );
+        } catch (error) {
+            alert("일정을 완료할 수 없습니다.");
+        }
+    };
+
+    return (
         <Container>
             <List>
                 {nextTodos.length > 0 ? (
-                    nextTodos.map((todo) => (
-                        <ListItem key={todo.id}>
-                            <span>{todo.title} {todo.priority} {todo.dueDate}</span>
+                    nextTodos.map((todo, index) => (
+                        <ListItem key={todo.todoId || index} onClick={() => 
+                            handleTodoClick(todo)}>
+                            <ItemRow>
+                                <Checkbox
+                                    $priority={todo.priority}
+                                    type="checkbox"
+                                    checked={todo.complete}
+                                    onChange={() => handleCheckboxClick(todo)}
+                                />
+                                <Title>{todo.title}</Title>
+                                <DueDate>{todo.dueDate}</DueDate>
+                            </ItemRow>
                         </ListItem>
                     ))
                 ) : (
@@ -39,7 +71,6 @@ const NextTodoList = () => {
         </Container>
     );
 }
-
 export default NextTodoList;
 
 const Container = styled.div`
@@ -53,4 +84,87 @@ const List = styled.ul`
 
 const ListItem = styled.li`
     margin-bottom: 10px;
-`;  
+    cursor: pointer;
+    &:hover {
+        background-color: #f0f0f0;
+    }
+    margin-left: 10px;
+`;
+
+const ItemRow = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const Checkbox = styled.input.attrs({ type: "checkbox" })`
+  -webkit-appearance: none; 
+  appearance: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border: 2px solid ${props => {
+    switch (props.$priority) {
+      case "BLACK":
+        return "black";
+      case "YELLOW":
+        return "yellow";
+      case "BLUE":
+        return "blue";
+      case "RED":
+        return "red";
+      default:
+        return "gray";
+    }
+  }};
+  border-radius: 3px;
+  margin-right: 10px;
+  background-color: white; 
+
+  &:checked {
+    background-color: white; /* 체크되어도 내부는 흰색 */
+    position: relative; 
+    &::after {
+      content: "✓";
+      color: ${props => {
+        switch (props.$priority) {
+          case "BLACK":
+            return "black";
+          case "YELLOW":
+            return "yellow";
+          case "BLUE":
+            return "blue";
+          case "RED":
+            return "red";
+          default:
+            return "gray";
+        }
+      }};
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+  }
+`;
+
+const Title = styled.div`
+    margin-left: 30px;
+`;
+
+const DueDate = styled.div`
+    margin-left: 100px;
+`;
+
+//어차피 오늘꺼말고 다음꺼 가지고 오는거 똑같으니까 그냥 복붙해서 다음꺼만 가져옴. ㅇㅇㅇ
+//복붙 ㅇㅈ ㅇ ㅇㅈ
+//잠만 근데 똑같이 넣었는데 왜 글쓰기 반영이 안되냐???????
+
+//원인 발견. 투두쓰기에서 지금 글쓰기 하면 아톰 최신으로 반영되는게 오늘꺼임.
+//다음꺼도 반영되게 해야하는데....
+//이래서 겟올 해가지고 하나로 전체 관리하면서 셀렉터로 짤라야하네.
+//이거 해라고 과제 준거같은데 어쩌지...지금 엎으면 시간이...

@@ -35,11 +35,15 @@ export const getAllTodos = async (token) => {
         const response = await axios.get(`${API_URL}/`, {
             headers: { Authorization: `Bearer ${token}` },
         });
+        console.log("전체데이터", response.data)
         return response.data;
     } catch (error){
         throw error;
     }
 }
+//완료 투두 가져오는게 안되는 이유가 뭐지 여기를 찾아봐야지
+//찾았다 true가 아니고 디비에 저장된게 1 이잖슴! 1 로 가져와야지 
+
 
 // ; 이거 안붙여서 나중에 안되는거 아니겠지...
 // 투두 쓰기기
@@ -133,7 +137,10 @@ export const toggleTodo = async (id, token) => {
     try {
         const response = await axios.post(`${API_URL}/${id}/toggle/`,
              {} , {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
         });
         return response.data;
     } catch (error){

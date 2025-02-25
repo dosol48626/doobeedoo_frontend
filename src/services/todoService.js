@@ -83,7 +83,6 @@ export const getTodoDetail = async (id, token) => {
 //수정하기...를 나중에 폼 그런걸 전체를 data로 묶어서 주고 id도 userId = id 이렇게해서 넣어서 주면 되잖슴!
 export const updateTodo = async (id, data, token) => {
     try {
-        console.log("Sending PUT request to:", `${API_URL}/${id}/`)
         const formData = new FormData();
         formData.append("title", data.title);
         formData.append("description", data.description); //상세내용은 상세보기에서 가능
@@ -92,12 +91,14 @@ export const updateTodo = async (id, data, token) => {
         formData.append("priority", data.priority);
 
         if(data.todoImageFile){
-        formData.append("todoImage", data.todoImage); //이미지는 상세보기에서 가능ㅇㅇㅇ
+        formData.append("todoImage", data.todoImageFile); //이미지는 상세보기에서 가능ㅇㅇㅇ
+        //File이라고 끝에 적었기에 이거 똑같이 해줘야해. todoImage는썸네일 같은역할임 개는 들어오는 애가 아냐
         }
 
         const response = await axios.put(`${API_URL}/${id}/`, formData, {
             headers: { 
                 Authorization: `Bearer ${token}`,
+                // "Content-Type": "multipart/form-data",
             }, //컨텐트타입 그냥 비우면 엑시오스가 알아서 잡아주려나;;
         });
         console.log("Update response:", response.data);

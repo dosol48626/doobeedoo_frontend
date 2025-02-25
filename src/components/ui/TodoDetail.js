@@ -10,8 +10,11 @@ import { deleteTodo, updateTodo } from "../../services/todoService";
 const TodoDetail = () => {
   const selectedTodo = useRecoilValue(selectedTodoState);
   const { token } = useRecoilValue(accountState);
+
   const [, setTodayTodos] = useRecoilState(getTodayTodosState);
   const [, setNextTodos] = useRecoilState(getNextTodosState);
+
+  // const [formData, setFormData] = useState(firstFormState)
 
   const [formData, setFormData] = useState({
     todoId: null,
@@ -25,6 +28,24 @@ const TodoDetail = () => {
     priority: "BLACK",
     routine_id: null,
   });
+  
+  const firstFormState = {
+    todoId: null,
+  user_id: null,
+  title: "",
+  description: "",
+  dueDate: "",
+  complete: false,
+  createDate: "",
+  todoImage: "",
+  priority: "BLACK",
+  routine_id: null,
+  };
+
+  //이미지 지옥이다. 왜 계속 이미지 옆에 주소가 남지
+  //아톰에서 데이터 가지고 있는거 같은데;;
+  //아니면 useState를 초기화?
+
 
   useEffect(() => {
     if (selectedTodo) {
@@ -52,6 +73,7 @@ const TodoDetail = () => {
     if (!selectedTodo) return;
     try {
       const updatedTodo = await updateTodo(formData.todoId, formData, token);
+      console.log("데이터 수정 확인이거거거거", updatedTodo);
       setTodayTodos((prevTodos) =>
         prevTodos.map((t) =>
           t.todoId === updatedTodo.todoId ? updatedTodo : t
@@ -62,7 +84,8 @@ const TodoDetail = () => {
           t.todoId === updatedTodo.todoId ? updatedTodo : t
         )
       );
-      alert("투두가 성공적으로 수정되었습니다.");
+      alert("투두 수정 성공");
+      setFormData(firstFormState);
     } catch (error) {
       alert("투두 수정 실패");
     }
@@ -139,6 +162,8 @@ const TodoDetail = () => {
               setFormData((prev) => ({
                 ...prev,
                 todoImage: URL.createObjectURL(file),
+                todoImageFile: file,
+                //이게 없어서 이미지가 미리보기는 나오는데 이미지가 들어가지 않았던거네
               }));
             }
           }}
@@ -160,12 +185,17 @@ const TodoDetail = () => {
 export default TodoDetail;
 
 const DetailContainer = styled.div`
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 700px;
+  height: 100vh;    
+  overflow-y: auto; 
+  border-left: 1px solid #ccc;
   background-color: #fafafa;
-  margin-top: 20px;
+  padding: 20px;
 `;
+//나중에 width로 조절하면 된다
 
 const FormGroup = styled.div`
   margin-bottom: 15px;

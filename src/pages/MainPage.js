@@ -14,7 +14,10 @@ function MainPage() {
                 <AllTodosLoader />
                 <TodoWrite />
                 <TodoListTabs />
-                <TodoDetail />
+
+                <RightSection>
+                    <TodoDetail />
+                </RightSection>
             </ContentArea>
         </PageContainer>
     );
@@ -33,4 +36,10 @@ const ContentArea = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
+    `;
+
+const RightSection = styled.div`
+    flex:1;
+    padding: 20px;
+    border: 1px solid #ddd;
     `;

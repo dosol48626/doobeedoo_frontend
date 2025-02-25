@@ -7,8 +7,7 @@ const ImportantPage = () => {
         <PageContainer>
             <Sidebar />
             <ContentArea>
-                <h1>중요도 페이지</h1>
-                <p>중요도 페이지입니다.</p>
+             
             </ContentArea>
         </PageContainer>
     );

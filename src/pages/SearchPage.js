@@ -1,14 +1,21 @@
 import React from "react";
 import Sidebar from "../components/ui/Sidebar";
 import styled from "styled-components";
+import TodoDetail from "../components/ui/TodoDetail";
+import SearchComponent from "../components/ui/SearchComponent";
+
 
 const SearchPage = () => {
     return (
         <PageContainer>
             <Sidebar />
             <ContentArea>
-                <h1>검색 페이지</h1>
-                <p>검색 페이지입니다.</p>
+
+                <SearchComponent />
+
+                <RightSection>
+                    <TodoDetail />
+                </RightSection>
             </ContentArea>
         </PageContainer>
     );
@@ -24,4 +31,10 @@ const ContentArea = styled.div`
     flex:1;
 `;
 
+const RightSection = styled.div`
+    flex:1;
+    `;
+
 export default SearchPage;
+
+

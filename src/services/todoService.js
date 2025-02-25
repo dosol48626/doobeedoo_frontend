@@ -138,15 +138,18 @@ export const getTodosByPriority = async (priority, token) => {
 //검색하기
 export const searchTodos = async (query, token) => {
     try {
-        const response = await axios.get(`${API_URL}/`, {
-            params: { query },
+        console.log("검색어:", query);
+        console.log("토큰:", token);
+        //왜 토큰이 검색어 쿼리가 들어가지??????????????????
+        const response = await axios.get(`${API_URL}?query=${encodeURIComponent(query)}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.data;
     } catch (error) {
+        console.error("Search error:", error.response ? error.response.data : error.message);
         throw error;
     }
-}
+};
 
 //어?? null 넣어줘야해??? 왜????????????????
 //그리고 나는 변경하는거 post 메서드 써서 이렇게 했음. put 아님

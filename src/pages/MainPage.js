@@ -39,7 +39,5 @@ const ContentArea = styled.div`
     `;
 
 const RightSection = styled.div`
-    flex:1;
-    padding: 20px;
-    border: 1px solid #ddd;
+
     `;

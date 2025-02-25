@@ -7,12 +7,21 @@ import { getTodayTodosState } from "../../recoil/todoAtom";
 import { getNextTodosState } from "../../recoil/todoAtom";
 import { deleteTodo, updateTodo } from "../../services/todoService";
 
+import { searchResultState } from "../../recoil/searchAtom";
+//아...힘들다
+//검색 기능 완료...
+//근데 검색어 입력하면 바로 나오게 하는게 맞겠지.
+//내가 뭐했는지 차라락 나오면 좋잖슴...나만그런가. 성취감이잖슴..ㅇㅇ
+
 const TodoDetail = () => {
   const selectedTodo = useRecoilValue(selectedTodoState);
   const { token } = useRecoilValue(accountState);
 
   const [, setTodayTodos] = useRecoilState(getTodayTodosState);
   const [, setNextTodos] = useRecoilState(getNextTodosState);
+
+  const [, setSearchResult] = useRecoilState(searchResultState);
+
 
   // const [formData, setFormData] = useState(firstFormState)
 
@@ -84,6 +93,11 @@ const TodoDetail = () => {
           t.todoId === updatedTodo.todoId ? updatedTodo : t
         )
       );
+      setSearchResult((prevTodos) =>
+        prevTodos.map((t) =>
+          t.todoId === updatedTodo.todoId ? updatedTodo : t
+        )
+      );
       alert("투두 수정 성공");
       setFormData(firstFormState);
     } catch (error) {
@@ -99,6 +113,9 @@ const TodoDetail = () => {
         prevTodos.filter((t) => t.todoId !== formData.todoId)
       );
       setNextTodos((prevTodos) =>
+        prevTodos.filter((t) => t.todoId !== formData.todoId)
+      );
+      setSearchResult((prevTodos) =>
         prevTodos.filter((t) => t.todoId !== formData.todoId)
       );
       alert("투두가 삭제되었습니다.");

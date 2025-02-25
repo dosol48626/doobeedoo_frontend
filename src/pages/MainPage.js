@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TodoWrite from "../components/ui/TodoWrite";
 import TodoListTabs from "../components/ui/TodoListTabs";
 import AllTodosLoader from "../components/ui/todo/AllTodosLoader";
+import TodoDetail from "../components/ui/TodoDetail";
 
 function MainPage() {
     return (
@@ -13,6 +14,7 @@ function MainPage() {
                 <AllTodosLoader />
                 <TodoWrite />
                 <TodoListTabs />
+                <TodoDetail />
             </ContentArea>
         </PageContainer>
     );

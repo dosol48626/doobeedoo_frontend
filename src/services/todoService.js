@@ -81,13 +81,29 @@ export const getTodoDetail = async (id, token) => {
 //이거 뭔가 이상한데;; data로 받아오면 안될거같은데.. 그럼 어떻게 받아와야하지??
 //수정이니까 아이디랑 토큰 받을테고, 아 잠만 아이디 아 아이디 ㅇㅇ
 //수정하기...를 나중에 폼 그런걸 전체를 data로 묶어서 주고 id도 userId = id 이렇게해서 넣어서 주면 되잖슴!
-export const udateTodo = async (id, data, token) => {
+export const updateTodo = async (id, data, token) => {
     try {
-        const response = await axios.put(`${API_URL}/${id}/`, data, {
-            headers: { Authorization: `Bearer ${token}` },
+        console.log("Sending PUT request to:", `${API_URL}/${id}/`)
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("description", data.description); //상세내용은 상세보기에서 가능
+        formData.append("dueDate", data.dueDate);
+        formData.append("complete", data.complete);
+        formData.append("priority", data.priority);
+
+        if(data.todoImageFile){
+        formData.append("todoImage", data.todoImage); //이미지는 상세보기에서 가능ㅇㅇㅇ
+        }
+
+        const response = await axios.put(`${API_URL}/${id}/`, formData, {
+            headers: { 
+                Authorization: `Bearer ${token}`,
+            }, //컨텐트타입 그냥 비우면 엑시오스가 알아서 잡아주려나;;
         });
+        console.log("Update response:", response.data);
         return response.data;
     } catch (error){
+        console.error("Update error:", error.response || error.message);
         throw error
     }
 }

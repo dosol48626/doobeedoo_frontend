@@ -11,12 +11,16 @@ import SearchPage from "./pages/SearchPage";
 import CompletePage from "./pages/CompletePage";
 //껏다키니까 고쳐지네;;
 
+import ResetWrapper from "./components/ResetWrapper";
+
 // import CompletePage from "./pages/CompletePage";
 //이 왜 임포트가 안되냐;;;;;??????
 //아 이거 ... 아 아닌데? 맞는데???
 function App() {
+
   return (
     <Router>
+      <ResetWrapper>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -38,8 +42,11 @@ function App() {
                                           <CompletePage />
                                         </ProtectedRoute>} />
       </Routes>
+      </ResetWrapper>
     </Router>
   );
 }
 
 export default App;
+//이게 되네....
+//커스텀 훅 만들어서 페이지 이동되면 셀렉트 초기화되게 하고 초기화하고 칠드런애들 작동되게 하니까 되네ㅇㅇㅇㅇㅇㅇㅇ

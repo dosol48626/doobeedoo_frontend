@@ -35,17 +35,38 @@ const TodoWrite = () => {
         //로그인 할때 제대로 안담겼나??
     
         //바꾼게 없는데 왜 갑자기 토큰 잘 담아서 주는거지....
+
         try {
             const newTodo = await createTodo(title, dueDate, priority, token);
-            setTodayTodos((prev) => [...prev, newTodo]);
-            setNextTodos((prev) => [...prev, newTodo]);
+            const today = new Date();
+            const normalizeDate = (date) =>
+                new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+            if (normalizeDate(new Date(newTodo.dueDate)) === normalizeDate(today)) {
+                setTodayTodos((prev) => [...prev, newTodo]);
+            }else{
+                setNextTodos((prev) => [...prev, newTodo]);
+            }
             setTitle("");
             setDueDate(todayString);
             setPriority("BLACK");
-        } catch (error) {
+        }
+        catch (error) {
             console.error("투두 생성 실패", error);
         }
     }
+    //아 고쳤다아아아아
+
+    //     try {
+    //         const newTodo = await createTodo(title, dueDate, priority, token);
+    //         setTodayTodos((prev) => [...prev, newTodo]);
+    //         setNextTodos((prev) => [...prev, newTodo]);
+    //         setTitle("");
+    //         setDueDate(todayString);
+    //         setPriority("BLACK");
+    //     } catch (error) {
+    //         console.error("투두 생성 실패", error);
+    //     }
+    // }
 
     return(
         <FormContainer onSubmit={handleSubmit}>

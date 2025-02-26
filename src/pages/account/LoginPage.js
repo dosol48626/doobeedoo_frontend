@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/accountService";
 import { accountState } from "../../recoil/accountAtom";
 
+import Landing from "../../components/ui/Landing";
+import styled from "styled-components";
+
 function LoginPage() {
     const Navigate = useNavigate();
     const setAccountState = useSetRecoilState(accountState);
@@ -34,33 +37,63 @@ function LoginPage() {
     };
     
     return(
-        <div>
-            <h2>로그인 페이지 임시</h2>
-            <form onSubmit={handleLogin}>
-                <label>
-                    ID: <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    />
-                </label>
+        <Container>
+            <LandingSection>
+                <Landing />
+            </LandingSection>
+            <LoginSection>
+                <h2>로그인 페이지 임시</h2>
+                    <form onSubmit={handleLogin}>
+                        <label>
+                            ID: <input
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </label>
 
-                <label>
-                    PW: <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
-                <button type="submit">로그인</button>
-            </form>
-            <p>
-                계정 없으면 만들어야징 <span onClick={() => Navigate("/register")}>회원가입</span>
-            </p>
-        </div>
-    );
+                        <label>
+                            PW: <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </label>
+                        <button type="submit">로그인</button>
+                    </form>
+                    <p>
+                        계정 없으면 만들어야징 <span onClick={() => Navigate("/register")}>회원가입</span>
+                    </p>
+            </LoginSection>
+        </Container>
+    )
 }
 
 export default LoginPage;
+
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+`;
+
+const LandingSection = styled.div`
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const LoginSection = styled.div`
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`; 
+
 //아...페이지 만드는거 너무 노가다일거같은데;;
 //나중에 디자인은 다른 페이지 참고해서 한번에 바꿔야지.
+
+//아 이거를 처음에 카드형식으로 만들어서 임포트했어야했는데...

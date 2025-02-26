@@ -51,7 +51,7 @@ const SearchComponent = () => {
     };
 
     useEffect(() => {
-        console.log("토크으으으으은", token);
+        // console.log("토크으으으으은", token);
         const delayDebounceFn = setTimeout(() => {
             if (query.trim !== "") {
                 searchTodos(query, token)

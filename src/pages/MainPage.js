@@ -3,7 +3,7 @@ import Sidebar from "../components/ui/Sidebar";
 import styled from "styled-components";
 import TodoWrite from "../components/ui/TodoWrite";
 import TodoListTabs from "../components/ui/TodoListTabs";
-import AllTodosLoader from "../components/ui/todo/AllTodosLoader";
+// import AllTodosLoader from "../components/ui/todo/AllTodosLoader";
 import TodoDetail from "../components/ui/TodoDetail";
 
 function MainPage() {
@@ -11,7 +11,7 @@ function MainPage() {
         <PageContainer>
             <Sidebar />
             <ContentArea>
-                <AllTodosLoader />
+                {/* <AllTodosLoader /> */}
                 <TodoWrite />
                 <TodoListTabs />
 

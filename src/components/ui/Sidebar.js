@@ -11,6 +11,7 @@ const Sidebar = () => {
             <SidebarItem onClick={() => navigate("/calendar")}>달력</SidebarItem>
             <SidebarItem onClick={() => navigate("/important")}>중요도</SidebarItem>
             <SidebarItem onClick={() => navigate("/search")}>검색</SidebarItem>
+            <SidebarItem onClick={() => navigate("/complete")}>완료</SidebarItem>
         </SidebarContainer>
     );
 }

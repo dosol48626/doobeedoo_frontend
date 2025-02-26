@@ -7,6 +7,7 @@ export const completedTodosState = selector({
         const allTodos = get(allTodosState);
         console.log(allTodos);
         return allTodos.filter((todo) => todo.complete === true);
+        //왜 완료 셀렉터 안거럴지지????
     },
 });
 

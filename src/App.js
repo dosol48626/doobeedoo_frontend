@@ -7,6 +7,13 @@ import RegisterPage from "./pages/account/RegisterPage";
 import CalendarPage from "./pages/CalendarPage";
 import ImportantPage from "./pages/ImportantPage";
 import SearchPage from "./pages/SearchPage";
+
+import CompletePage from "./pages/CompletePage";
+//껏다키니까 고쳐지네;;
+
+// import CompletePage from "./pages/CompletePage";
+//이 왜 임포트가 안되냐;;;;;??????
+//아 이거 ... 아 아닌데? 맞는데???
 function App() {
   return (
     <Router>
@@ -26,6 +33,10 @@ function App() {
                                         <SearchPage />
                                       </ProtectedRoute>} />                       
         <Route path="*" element={<LoginPage />} />
+
+        <Route path="/complete" element={<ProtectedRoute>
+                                          <CompletePage />
+                                        </ProtectedRoute>} />
       </Routes>
     </Router>
   );

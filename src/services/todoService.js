@@ -138,8 +138,8 @@ export const getTodosByPriority = async (priority, token) => {
 //검색하기
 export const searchTodos = async (query, token) => {
     try {
-        console.log("검색어:", query);
-        console.log("토큰:", token);
+        // console.log("검색어:", query);
+        // console.log("토큰:", token);
         //왜 토큰이 검색어 쿼리가 들어가지??????????????????
         const response = await axios.get(`${API_URL}?query=${encodeURIComponent(query)}`, {
             headers: { Authorization: `Bearer ${token}` },

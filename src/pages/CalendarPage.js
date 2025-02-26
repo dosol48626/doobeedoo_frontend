@@ -1,15 +1,20 @@
 import React from "react";
 import Sidebar from "../components/ui/Sidebar";
 import styled from "styled-components";
+import CalendarComponent from "../components/ui/CalendarComponent";
+
+import AllTodosLoader from "../components/ui/todo/AllTodosLoader";
+import TodoDetail from "../components/ui/TodoDetail";
 
 const calendarPage = () => {
     return (
         <PageContainer>
             <Sidebar />
+            <AllTodosLoader />
             <ContentArea>
-                <h1>달력 페이지</h1>
-                <p>달력 페이지입니다.</p>
+                <CalendarComponent />
             </ContentArea>
+            <TodoDetail />
         </PageContainer>
     );
 }

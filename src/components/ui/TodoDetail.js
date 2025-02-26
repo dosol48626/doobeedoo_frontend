@@ -8,6 +8,13 @@ import { getNextTodosState } from "../../recoil/todoAtom";
 import { deleteTodo, updateTodo } from "../../services/todoService";
 
 import { searchResultState } from "../../recoil/searchAtom";
+
+import { allTodosState } from "../../recoil/todoAtom";
+// import { selectedDateState } from "../../recoil/selectedDateAtom";
+// import { setSelectedTodo } from "../../recoil/selectedTodoAtom";
+
+// import {selectedDateAtom} from "../../recoil/selectedDateAtom";
+//아 이름을 비슷하게 지어서 이게 쌓일수록 헷갈리네;;;
 //아...힘들다
 //검색 기능 완료...
 //근데 검색어 입력하면 바로 나오게 하는게 맞겠지.
@@ -21,8 +28,10 @@ const TodoDetail = () => {
   const [, setNextTodos] = useRecoilState(getNextTodosState);
 
   const [, setSearchResult] = useRecoilState(searchResultState);
+  const [, setAllTodos] = useRecoilState(allTodosState);
+  // const [, setSelectedDate] = useRecoilState(selectedDateState);
 
-
+  // const [, setSelectedTodo] = useRecoilState(selectedTodoState);
   // const [formData, setFormData] = useState(firstFormState)
 
   const [formData, setFormData] = useState({
@@ -55,7 +64,6 @@ const TodoDetail = () => {
   //아톰에서 데이터 가지고 있는거 같은데;;
   //아니면 useState를 초기화?
 
-
   useEffect(() => {
     if (selectedTodo) {
       setFormData({
@@ -83,6 +91,7 @@ const TodoDetail = () => {
     try {
       const updatedTodo = await updateTodo(formData.todoId, formData, token);
       console.log("데이터 수정 확인이거거거거", updatedTodo);
+
       setTodayTodos((prevTodos) =>
         prevTodos.map((t) =>
           t.todoId === updatedTodo.todoId ? updatedTodo : t
@@ -98,6 +107,15 @@ const TodoDetail = () => {
           t.todoId === updatedTodo.todoId ? updatedTodo : t
         )
       );
+      setAllTodos((prevTodos) =>
+        prevTodos.map((t) =>
+          t.todoId === updatedTodo.todoId ? updatedTodo : t
+        )
+      );
+      //아 고쳤다. 내가 달력에서 셀렉트데이트 안쓰고 올투두 썼네...
+      //와 이거 리팩토링할때 머리 진짜 아프겠네...
+      // setSelectedDate
+
       alert("투두 수정 성공");
       setFormData(firstFormState);
     } catch (error) {
@@ -118,6 +136,10 @@ const TodoDetail = () => {
       setSearchResult((prevTodos) =>
         prevTodos.filter((t) => t.todoId !== formData.todoId)
       );
+      setAllTodos((prevTodos) =>
+        prevTodos.filter((t) => t.todoId !== formData.todoId)
+      );
+      
       alert("투두가 삭제되었습니다.");
     } catch (error) {
       alert("투두 삭제 실패");

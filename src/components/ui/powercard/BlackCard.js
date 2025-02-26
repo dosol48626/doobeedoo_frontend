@@ -29,7 +29,6 @@ const BlackCard = () => {
 
     return (
         <CardContainer>
-      <h3>긴급 (Black)</h3>
       {blackTodos.map((todo) => (
         <TodoItem key={todo.todoId}>
           <input
@@ -48,12 +47,15 @@ const BlackCard = () => {
 export default BlackCard;
 
 const CardContainer = styled.div`
-  width: 300px;
-  border: 1px solid black;
+  width: 500px;
+  height: 230px;
   padding: 10px;
-  margin: 10px;
+  border: 3px solid black;
 `;
 const TodoItem = styled.div`
+  font-size: 17px;
+  width: 300px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;

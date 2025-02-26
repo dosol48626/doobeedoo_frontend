@@ -177,7 +177,7 @@ const DueDate = styled.div`
 
 const SearchContainer = styled.div`
   margin-top: 20px;
-  width: 1000px;
+  width: 700px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

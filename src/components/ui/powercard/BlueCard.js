@@ -29,7 +29,6 @@ const BlueCard = () => {
 
     return (
         <CardContainer>
-      <h3>긴급 (Blue)</h3>
       {blueTodos.map((todo) => (
         <TodoItem key={todo.todoId}>
           <input
@@ -48,12 +47,15 @@ const BlueCard = () => {
 export default BlueCard;
 
 const CardContainer = styled.div`
-  width: 300px;
-  border: 1px solid blue;
+  width: 500px;
+  height: 230px;
   padding: 10px;
-  margin: 10px;
+  border: 3px solid blue;
 `;
 const TodoItem = styled.div`
+  font-size: 17px;
+  width: 300px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;

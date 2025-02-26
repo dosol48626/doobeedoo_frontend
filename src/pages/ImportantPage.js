@@ -25,7 +25,11 @@ const ImportantPage = () => {
     return (
         <PageContainer>
             <Sidebar />
+            
             <ContentArea>
+                <TitleContainer>
+                    <Title>MUST-DO</Title>
+                </TitleContainer>
                 <Red />
                 <Yellow />
                 <Blue />
@@ -42,21 +46,42 @@ const ImportantPage = () => {
     );
 }
 
+const TitleContainer = styled.div`
+    // border : 1px solid black;
+    width: 200px;
+    height: 50px;
+    margin-left: 50px;
+
+    
+`;
+
+const Title = styled.div`
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 50px;
+`;
+
+
 const PageContainer = styled.div`
     display: flex;
+    
 `;
 
 const ContentArea = styled.div`
+    border: 1px solid #ccc;
     margin-left:200px;
     padding:20px;
     flex:1;
 `;
 
 const CardsContainer = styled.div`
+    // border: 1px solid #ccc;
+    width: 1300px;
+    height : 600px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 90px;
+    gap: 100px;
+    margin-top: 20px;
     margin-left: 50px;
 `;
 

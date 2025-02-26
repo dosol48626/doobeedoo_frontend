@@ -9,32 +9,36 @@ const Landing = () => {
             <Card>
                 <CardImage src={ran1.jpg} />
                 <CardContent>
-                    <Title>끝내주는 투두 웹</Title>
+                    <Title>즐겁게 하루를 계획 해보세요~</Title>
                 </CardContent>
             </Card>
+
         </LandingContainer>
     )
 }
 export default Landing;
 
 const LandingContainer = styled.div`
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    background-color: #f9f9f9;
 `;
 
 const Card = styled.div`
-    width: 300px;
-    height: 400px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    width: 480px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 `;
 
 const CardImage = styled.div`
-    width: 100%;
-    height: 200px;
+    width: 500px;
+    height: 430px;
     background-image: url(${ran1});
     background-size: cover;
     background-position: center;
@@ -44,10 +48,17 @@ const CardImage = styled.div`
 
 const CardContent = styled.div`
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: lightgrey;
 `;
 
 const Title = styled.div`
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     color: #333;
+    text-align: center;
 `;
+
+//다른사람이 만든 디자인을 적용할려고해도 쉽지가 않네..
+//오히려 내꺼에 맞게 또 바꿔야하니까 더 어렵네네

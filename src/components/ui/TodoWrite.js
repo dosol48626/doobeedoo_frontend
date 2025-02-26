@@ -9,6 +9,20 @@ import { createTodo } from "../../services/todoService";
 import { getTodayTodosState } from "../../recoil/todoAtom";
 import { getNextTodosState } from "../../recoil/todoAtom";
 
+import black from "../../asset/power/black.png";
+import yellow from "../../asset/power/yellow.png";
+import blue from "../../asset/power/blue.png";
+import red from "../../asset/power/red.png";
+
+const priorityOptions = [
+    { value: "BLACK", label: "", image: black },
+    { value: "YELLOW", label: "", image: yellow },
+    { value: "BLUE", label: "", image: blue },
+    { value: "RED", label: "", image: red },  
+];
+//아 밸류가 두개니까 헷갈린다. 이 밸류는 이미지 밸류 아랫밸류는 api전달 밸류
+
+
 const TodoWrite = () => {
     const todayString = new Date().toISOString().split("T")[0];
 
@@ -52,8 +66,21 @@ const TodoWrite = () => {
         }
         catch (error) {
             console.error("투두 생성 실패", error);
+            alert("할 일을 입력하셔야죠");
         }
     }
+
+    const [ dropdownOpen, setDropdownOpen ] = useState(false);
+    const selectedOption = priorityOptions.find((option) => option.value === priority);
+    
+    const toggleDropdown = () => {
+        setDropdownOpen((prev) => !prev);
+    }
+    const handleSelect = (optionValue) => {
+        setPriority(optionValue);
+        setDropdownOpen(false);
+    }
+    
     //아 고쳤다아아아아
 
     //     try {
@@ -68,60 +95,142 @@ const TodoWrite = () => {
     //     }
     // }
 
-    return(
+    return (
         <FormContainer onSubmit={handleSubmit}>
-            <label>
-                <Select
-                    value={priority}
-                    onChange={(e) => setPriority(e.target.value)}
-                >
-                    <option value="BLACK">일반</option>
-                    <option value="YELLOW">일반반</option>
-                    <option value="BLUE">중요</option>
-                    <option value="RED">매우 중요</option>
-                </Select>
-            </label>
-            <label>
-                <Input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="할 일을 입력하세요"
-                />
-            </label>
-            <label>
-                <Input
-                    type="date"
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
-                />
-            </label>
-            <button type="submit">추가</button>
+          <DropdownContainer>
+            <DropdownHeader onClick={toggleDropdown}>
+              <OptionImage src={selectedOption.image} />
+              <OptionLabel>{selectedOption.label}</OptionLabel>
+            </DropdownHeader>
+            {dropdownOpen && (
+              <DropdownList>
+                {priorityOptions.map((option) => (
+                  <DropdownItem
+                    key={option.value}
+                    onClick={() => handleSelect(option.value)}
+                  >
+                    <OptionImage src={option.image} />
+                    <OptionLabel>{option.label}</OptionLabel>
+                  </DropdownItem>
+                ))}
+              </DropdownList>
+            )}
+          </DropdownContainer>
+
+          <InputContainer>
+            <InputField
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="할 일을 입력하세요"
+            />
+          </InputContainer>
+
+          <InputContainer>
+            <InputField
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+            />
+          </InputContainer>
+
+          <SubmitButton type="submit">추가</SubmitButton>
         </FormContainer>
-    );
-}
+      );
+    };
+
 //이거 실행하면서 크기랑 이것저것 잡아야겠네
 export default TodoWrite;
 
 const FormContainer = styled.form`
-    display: flex;
-    margin: 0px;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    background-color: #f0f0f0;
-    margin-left: 10px;
-    margin-right: 900px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  max-width: 600px;
+  gap: 4px;
+  margin-left: 20px;
+  margin-bottom: 10px;
 `;
 
-const Input = styled.input`
-    margin: 10px;
-    padding: 10px;
+const DropdownContainer = styled.div`
+  position: relative;
+  width: 70px; /* 기존 150px보다 좁게 */
+  margin: 0px;
+  align-items: center;
 `;
 
-const Select = styled.select`
-    margin: 10px;
-    padding: 10px;
+const DropdownHeader = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+//아 왜 깃발이 가운대로 안가는거지
+const DropdownList = styled.ul`
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const DropdownItem = styled.li`
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    background: #f0f0f0;
+  }
+`;
+
+const OptionImage = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+`;
+
+const OptionLabel = styled.span`
+  font-size: 0.9rem;
+  color: #333;
+`;
+
+const InputContainer = styled.div`
+  flex: 1;
+  margin: 0 10px;
+`;
+
+const InputField = styled.input`
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+//더 디테일하게 하려면 날짜도 컨테이너 만들어야하네...
+
+const SubmitButton = styled.button`
+  padding: 5px 15px;
+  font-size: 1rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 `;
 
 

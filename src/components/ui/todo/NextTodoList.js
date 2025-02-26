@@ -74,7 +74,13 @@ const NextTodoList = () => {
 export default NextTodoList;
 
 const Container = styled.div`
+  border: 1px solid black;
+  background-color: #f0f0f0;
     padding: 20px;
+    margin-top: 60px;
+    width: 120%;
+    max-width: 700px;
+    margin-left: -170px;
 `;
 
 const List = styled.ul`
@@ -86,7 +92,7 @@ const ListItem = styled.li`
     margin-bottom: 10px;
     cursor: pointer;
     &:hover {
-        background-color: #f0f0f0;
+        background-color: lightgray;
     }
     margin-left: 10px;
 `;
@@ -94,6 +100,9 @@ const ListItem = styled.li`
 const ItemRow = styled.div`
     display: flex;
     align-items: center;
+    font-size: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
 `;
 
 const Checkbox = styled.input.attrs({ type: "checkbox" })`
@@ -122,10 +131,11 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
 
   &:checked {
     background-color: white; /* 체크되어도 내부는 흰색 */
-    position: relative; 
+    position: relative; /* ::after 위치 지정을 위해 필요 */
     &::after {
       content: "✓";
       color: ${props => {
+        // 체크 표시의 색상은 테두리 색상과 동일하게 설정
         switch (props.$priority) {
           case "BLACK":
             return "black";
@@ -151,13 +161,17 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
     }
   }
 `;
+//이게 체크박스 커스텀을 하려니까 설정을 다 잡아줘야 작동을 하네.
+//그냥 테두리만 바꾸고 싶다고 테두리만 건드리니까 작동을 안했네.
 
 const Title = styled.div`
     margin-left: 30px;
+    width: 300px;
 `;
+//width잡으니까 각이 맞춰지네??
 
 const DueDate = styled.div`
-    margin-left: 100px;
+    margin-left: 50px;
 `;
 
 //어차피 오늘꺼말고 다음꺼 가지고 오는거 똑같으니까 그냥 복붙해서 다음꺼만 가져옴. ㅇㅇㅇ

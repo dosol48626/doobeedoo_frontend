@@ -76,7 +76,7 @@ const CompletedTodoList = () => {
 
     return (
         <Container>
-            <h1>내가 부지런히 살았다는 흔적</h1>
+            <h1>성장 경험치</h1>
           <List>
             {completedTodos.length > 0 ? (
               completedTodos.map((todo, index) => (
@@ -125,10 +125,12 @@ const List = styled.ul`
   flex-wrap: wrap;      
   gap: 20px;            
   justify-content: center;
+  width: 1100px;
+  // height: 500px;
 `;
 
 const ListItem = styled.li`
-  width: 250px;        
+  width: 300px;        
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;

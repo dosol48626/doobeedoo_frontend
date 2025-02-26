@@ -77,7 +77,13 @@ const TodayTodoList = () => {
 export default TodayTodoList;
 
 const Container = styled.div`
+  border: 1px solid black;
+  background-color:rgb(240, 240, 240);
     padding: 20px;
+    margin-top: 60px;
+    width: 120%;
+    max-width: 700px;
+    margin-left: -170px;
 `;
 
 const List = styled.ul`
@@ -97,6 +103,9 @@ const ListItem = styled.li`
 const ItemRow = styled.div`
     display: flex;
     align-items: center;
+    font-size: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
 `;
 
 const Checkbox = styled.input.attrs({ type: "checkbox" })`
@@ -160,10 +169,12 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
 
 const Title = styled.div`
     margin-left: 30px;
+    width: 300px;
 `;
+//width잡으니까 각이 맞춰지네??
 
 const DueDate = styled.div`
-    margin-left: 100px;
+    margin-left: 50px;
 `;
 
 

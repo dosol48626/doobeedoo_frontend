@@ -20,6 +20,20 @@ import { allTodosState } from "../../recoil/todoAtom";
 //근데 검색어 입력하면 바로 나오게 하는게 맞겠지.
 //내가 뭐했는지 차라락 나오면 좋잖슴...나만그런가. 성취감이잖슴..ㅇㅇ
 
+import black from "../../asset/power/black.png";
+import yellow from "../../asset/power/yellow.png";
+import blue from "../../asset/power/blue.png";
+import red from "../../asset/power/red.png";
+
+const priorityOptions = [
+    { value: "BLACK", label: "", image: black },
+    { value: "YELLOW", label: "", image: yellow },
+    { value: "BLUE", label: "", image: blue },
+    { value: "RED", label: "", image: red },  
+];
+
+
+
 const TodoDetail = () => {
   const selectedTodo = useRecoilValue(selectedTodoState);
   const { token } = useRecoilValue(accountState);
@@ -116,10 +130,10 @@ const TodoDetail = () => {
       //와 이거 리팩토링할때 머리 진짜 아프겠네...
       // setSelectedDate
 
-      alert("투두 수정 성공");
+      alert("수정 완료!");
       setFormData(firstFormState);
     } catch (error) {
-      alert("투두 수정 실패");
+      alert("바뀐게 없는데?");
     }
   };
 
@@ -140,158 +154,272 @@ const TodoDetail = () => {
         prevTodos.filter((t) => t.todoId !== formData.todoId)
       );
       
-      alert("투두가 삭제되었습니다.");
+      alert("삭제 완료");
     } catch (error) {
       alert("투두 삭제 실패");
     }
   };
 
+  const [ dropdownOpen, setDropdownOpen ] = useState(false);
+      const selectedOption = priorityOptions.find((option) => option.value === formData.priority);
+      
+      const toggleDropdown = () => {
+          setDropdownOpen((prev) => !prev);
+      }
+      const handleSelect = (optionValue) => {
+          setFormData((prev) => ({ ...prev, priority: optionValue }));
+          setDropdownOpen(false);
+      }
+
   if (!selectedTodo) return <Placeholder>투두를 선택하세요.</Placeholder>;
 
   return (
     <DetailContainer>
-      <h2>투두 상세보기 및 편집</h2>
-      <FormGroup>
-        <Label>제목:</Label>
-        <Input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label>설명:</Label>
-        <Textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label>마감일:</Label>
-        <Input
-          type="date"
-          name="dueDate"
-          value={formData.dueDate}
-          onChange={handleChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label>우선순위:</Label>
-        <Select
-          name="priority"
-          value={formData.priority}
-          onChange={handleChange}
-        >
-          <option value="BLACK">일반</option>
-          <option value="YELLOW">노랑</option>
-          <option value="BLUE">파랑</option>
-          <option value="RED">빨강</option>
-        </Select>
-      </FormGroup>
-      <FormGroup>
-        <Label>이미지:</Label>
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            const file = e.target.files[0];
-            if (file) {
-              setFormData((prev) => ({
-                ...prev,
-                todoImage: URL.createObjectURL(file),
-                todoImageFile: file,
-                //이게 없어서 이미지가 미리보기는 나오는데 이미지가 들어가지 않았던거네
-              }));
-            }
-          }}
-        />
-      </FormGroup>
-      {formData.todoImage && (
-        <ImagePreview>
-          <img src={formData.todoImage} alt="투두 이미지 미리보기" />
-        </ImagePreview>
-      )}
+      <h2>할 일 점검 & 튜닝</h2>
       <ButtonGroup>
         <Button onClick={handleUpdate}>수정</Button>
         <Button onClick={handleDelete}>삭제</Button>
       </ButtonGroup>
+
+      
+      <PriorityRow>
+        <Label>우선순위:</Label>
+        <DropdownContainer>
+          <DropdownHeader onClick={toggleDropdown}>
+            {selectedOption && (
+              <>
+                <OptionImage src={selectedOption.image} alt={selectedOption.label} />
+                <OptionLabel>{selectedOption.label}</OptionLabel>
+              </>
+            )}
+          </DropdownHeader>
+          {dropdownOpen && (
+            <DropdownList>
+              {priorityOptions.map((option) => (
+                <DropdownItem
+                  key={option.value}
+                  onClick={() => handleSelect(option.value)}
+                >
+                  <OptionImage src={option.image} alt={option.label} />
+                  <OptionLabel>{option.label}</OptionLabel>
+                </DropdownItem>
+              ))}
+            </DropdownList>
+          )}
+        </DropdownContainer>
+      </PriorityRow>
+
+      <TitleDateRow>
+        <FormGroup>
+          <Input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Input
+            type="date"
+            name="dueDate"
+            value={formData.dueDate}
+            onChange={handleChange}
+          />
+        </FormGroup>
+      </TitleDateRow>
+
+      
+
+      <DescriptionRow>
+        <FormGroup>
+          <Textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="설명을 입력하세요"
+          />
+        </FormGroup>
+      </DescriptionRow>
+
+      <ImageRow>
+        <FormGroup>
+          <Input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                setFormData((prev) => ({
+                  ...prev,
+                  todoImage: URL.createObjectURL(file),
+                  todoImageFile: file,
+                  //이게 없어서 이미지가 미리보기는 나오는데 이미지가 들어가지 않았던거네
+                }));
+              }
+            }}
+          />
+        </FormGroup>
+        {formData.todoImage && (
+        <ImagePreview>
+          <img src={formData.todoImage} alt="투두 이미지 미리보기" />
+        </ImagePreview>
+      )}
+      </ImageRow>
+        
+    
+      
     </DetailContainer>
   );
 };
 
 export default TodoDetail;
+//와....고쳤다...
+
+const TitleDateRow = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
+
+const PriorityRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+const DescriptionRow = styled.div`  
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
+
+const ImageRow = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const DropdownContainer = styled.div`
+  border: 1px solid black;
+  background-color: #f0f0f0;
+  
+  position: relative;
+  width: 40px; 
+  margin: 0px; 
+  align-items: center;
+`;
+
+const DropdownHeader = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const DropdownList = styled.ul`
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const DropdownItem = styled.li`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: #f0f0f0;
+  }
+`;
+
+const OptionImage = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+`;
+
+const OptionLabel = styled.span`
+  font-size: 14px;
+`;
 
 const DetailContainer = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  width: 700px;
-  height: 100vh;    
-  overflow-y: auto; 
+  width: 500px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
   border-left: 1px solid #ccc;
   background-color: #fafafa;
-  padding: 20px;
 `;
-//나중에 width로 조절하면 된다
 
 const FormGroup = styled.div`
-  margin-bottom: 15px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const Label = styled.label`
-  width: 100px;
-  font-weight: bold;
+  font-size: 16px;
 `;
 
 const Input = styled.input`
-  padding: 8px;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 5px;
+  font-size: 16px;
 `;
 
 const Textarea = styled.textarea`
-  padding: 8px;
-  width: 100%;
-  height: 100px;
-  box-sizing: border-box;
-`;
-
-const Select = styled.select`
-  padding: 8px;
-  width: 100%;
-  box-sizing: border-box;
+  width: 200%;
+  height: 250px;
+  padding: 5px;
+  font-size: 16px;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   gap: 10px;
-  margin-top: 20px;
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 `;
 
 const Placeholder = styled.div`
   padding: 20px;
-  font-style: italic;
-  color: #666;
+  font-size: 0px;
+  text-align: center;
 `;
 
 const ImagePreview = styled.div`
-  margin-top: 10px;
+  margin-top: 50px;
+  margin-left: -330px;
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
   img {
-    max-width: 200px;
-    max-height: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
+
 
 //상세보기는....클론코..
 //어찌저지 만들었네;;

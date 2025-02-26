@@ -115,14 +115,21 @@ const CalendarComponent = () => {
 export default CalendarComponent;
 
 const Wrapper = styled.div`
+    border: 1px solid #ccc;
+    margin-left: 50px;
+    width: 700px;
+    height: 700px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     `;
 
 const CalendarStyled = styled(Calendar)`
     margin: 20px;
+    width: 600px;
+    height: 300px;
+    align-self: center;
     `;
 
 const ItmeRow = styled.div`
@@ -188,15 +195,22 @@ const ItmeRow = styled.div`
 //체크박스 재활용
 
 const TodoTitle = styled.span`
+    align-self: center;
     `;
 
 const TodosList = styled.div`
+    align-self: center;
     flex: 1; 
     `;
 
 const TodoItem = styled.div`
-    margin: 5px;
-    padding: 5px;
+    margin: 10px;
+    padding: 7px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 350px;
+    &:hover {
+        background-color: lightgray;
+    }
     `;
+    //커서랑 호버랑은 같이 못쓰네. 중복이 안되는구나

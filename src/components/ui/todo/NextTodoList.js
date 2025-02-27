@@ -135,7 +135,6 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
     &::after {
       content: "✓";
       color: ${props => {
-        // 체크 표시의 색상은 테두리 색상과 동일하게 설정
         switch (props.$priority) {
           case "BLACK":
             return "black";

@@ -20,6 +20,7 @@ import clear from "../../asset/sidebar/clear.png";
 import search from "../../asset/sidebar/search.png";
 import priority from "../../asset/sidebar/priority.png";
 
+import letter from "../../asset/sidebar/letter.png";
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -91,6 +92,12 @@ const Sidebar = () => {
                   <MenuIcon src={clear} />
                   완료
                 </SidebarItem>
+                
+                <SidebarItem onClick={() => navigate("/letter")}>
+                  <MenuIcon src={letter} />
+                  편지
+                </SidebarItem>
+
               </MenuContainer>
         
               {/* 점수 및 이미지 영역 */}
@@ -140,12 +147,13 @@ const SidebarItem = styled.div`
 const SidebarContainer = styled.div`
     position: fixed;
     width: 200px;
-    height:100vh;
+    height:150vh;
     background-color: #f8f9fa;
     padding: 20px;
     flex-direction: column;
     display: flex;
+    margin-top: -70px;
     `;
-
+//왜 편지페이지로 이동하면 사이드바 움찔하지..??
 
 export default Sidebar;

@@ -53,10 +53,11 @@ const CardContainer = styled.div`
   border: 3px solid rgb(255, 251, 0);
 `;
 const TodoItem = styled.div`
-  font-size: 17px;
+  font-size: 23px;
   width: 300px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
+//왜 노란색은 같은 크기인데 더 작아보이지;;

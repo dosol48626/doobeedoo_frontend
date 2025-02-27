@@ -53,7 +53,7 @@ const CardContainer = styled.div`
   border: 3px solid red;
 `;
 const TodoItem = styled.div`
-  font-size: 17px;
+  font-size: 22px;
   width: 300px;
   height: 30px;
   display: flex;

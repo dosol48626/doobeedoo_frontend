@@ -13,6 +13,10 @@ import CompletePage from "./pages/CompletePage";
 
 import ResetWrapper from "./components/ResetWrapper";
 
+import Letter from "./pages/Letter";
+//아 이거 버그있네. 경로 잘 잡은거 맞는데 빨간줄 뜨네.
+//껏다키면 괜찮이지긴하는데;;
+
 // import CompletePage from "./pages/CompletePage";
 //이 왜 임포트가 안되냐;;;;;??????
 //아 이거 ... 아 아닌데? 맞는데???
@@ -41,6 +45,9 @@ function App() {
         <Route path="/complete" element={<ProtectedRoute>
                                           <CompletePage />
                                         </ProtectedRoute>} />
+        <Route path="/letter" element={<ProtectedRoute>
+                                          <Letter />
+                                        </ProtectedRoute>} /> 
       </Routes>
       </ResetWrapper>
     </Router>

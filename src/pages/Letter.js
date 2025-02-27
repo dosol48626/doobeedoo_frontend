@@ -44,7 +44,6 @@ const PageContainer = styled.div`
   align-items: center;
   margin-left: 220px; 
   padding: 20px;
-  background-color: #f2f2f2;
 `;
 
 const LetterContainer = styled.div`

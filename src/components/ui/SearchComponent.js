@@ -107,6 +107,10 @@ const SearchComponent = () => {
 
 const ItemRow = styled.div`
     display: flex;
+    &:hover {
+        background-color: lightgray;
+    }
+    gap: 10px;
 `;
 
 const Checkbox = styled.input.attrs({ type: "checkbox" })`
@@ -139,7 +143,6 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
     &::after {
       content: "✓";
       color: ${props => {
-        // 체크 표시의 색상은 테두리 색상과 동일하게 설정
         switch (props.$priority) {
           case "BLACK":
             return "black";
@@ -168,16 +171,16 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
 
 const Title = styled.div`
     flex: 1;
+    
 `;
 
 const DueDate = styled.div`
     color: #999;
 `;
 
-
 const SearchContainer = styled.div`
   margin-top: 20px;
-  width: 700px;
+  width: 600px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -187,6 +190,7 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 100%;
+  height: 40px;
   padding: 8px;
   margin-bottom: 10px;
   box-sizing: border-box;
@@ -198,6 +202,8 @@ const ResultsList = styled.ul`
 `;
 
 const ResultItem = styled.li`
+  width: 500px;
+  height: 40px;
   padding: 5px 0;
   border-bottom: 1px solid #eee;
 `;

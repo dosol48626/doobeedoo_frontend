@@ -53,8 +53,10 @@ const CardContainer = styled.div`
   border: 3px solid rgb(255, 251, 0);
 `;
 const TodoItem = styled.div`
+  // border: 1px solid black;
+  margin-top: 10px;
   font-size: 23px;
-  width: 300px;
+  width: 450px;
   height: 30px;
   display: flex;
   align-items: center;

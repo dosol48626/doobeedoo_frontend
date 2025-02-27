@@ -54,7 +54,8 @@ const CardContainer = styled.div`
 `;
 const TodoItem = styled.div`
   font-size: 22px;
-  width: 300px;
+  margin-top: 10px;
+  width: 450px;
   height: 30px;
   display: flex;
   align-items: center;

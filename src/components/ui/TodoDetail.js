@@ -126,16 +126,16 @@ const TodoDetail = () => {
           t.todoId === updatedTodo.todoId ? updatedTodo : t
         )
       );
-      //아 고쳤다. 내가 달력에서 셀렉트데이트 안쓰고 올투두 썼네...
-      //와 이거 리팩토링할때 머리 진짜 아프겠네...
-      // setSelectedDate
-
       alert("수정 완료!");
       setFormData(firstFormState);
     } catch (error) {
       alert("바뀐게 없는데?");
     }
   };
+  //아 고쳤다. 내가 달력에서 셀렉트데이트 안쓰고 올투두 썼네...
+  //와 이거 리팩토링할때 머리 진짜 아프겠네...
+  // setSelectedDate
+
 
   const handleDelete = async () => {
     if (!selectedTodo) return;

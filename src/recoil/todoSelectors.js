@@ -7,9 +7,11 @@ export const completedTodosState = selector({
         const allTodos = get(allTodosState);
         console.log(allTodos);
         return allTodos.filter((todo) => todo.complete === true);
-        //왜 완료 셀렉터 안거럴지지????
     },
 });
+
+        //왜 완료 셀렉터 안거럴지지????
+
 
 //나중에 헷갈리지않게 적어야겠네..
 //이게 그 그거임. 서버에서 완료 투두 가져오기 안만들었잖슴.
